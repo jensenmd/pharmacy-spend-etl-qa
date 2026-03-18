@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.env
+venv/
+.venv/
+
+# Generated data and database
+data/raw/
+data/processed/
+
+# Reports (generated at runtime)
+reports/
+
+# pytest
+.pytest_cache/

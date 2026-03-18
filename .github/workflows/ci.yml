@@ -1,0 +1,42 @@
+name: ETL Pipeline + Validation Suite
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  etl-and-validate:
+    name: Run ETL Pipeline and Validation Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Generate source data
+        run: python data/generate_source_data.py
+
+      - name: Run ETL pipeline
+        run: python etl/etl_pipeline.py
+
+      - name: Run validation test suite
+        run: |
+          pytest tests/ -v \
+            --html=reports/validation-report.html \
+            --self-contained-html
+
+      - name: Upload validation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: validation-report
+          path: reports/validation-report.html
