@@ -2,7 +2,13 @@
 
 A SQL-driven data validation framework simulating ETL pipeline QA using pharmaceutical spend data modeled after the CMS Medicare Part D public dataset.
 
-Built to demonstrate the source-to-target validation discipline used in enterprise healthcare QA — specifically the approach developed over five years testing the Rx Analytics platform at GHX (Global Healthcare Exchange).
+Built to demonstrate the source-to-target validation discipline used in enterprise healthcare QA — specifically the approach developed over five years testing the **Rx Analytics platform at GHX (Global Healthcare Exchange)**.
+
+![CI Status](https://github.com/jensenmd/pharmacy-spend-etl-qa/actions/workflows/ci.yml/badge.svg)
+
+Built by **Michael D. Jensen** — Senior QA Engineer with 15+ years of enterprise testing experience, including five years as primary QA engineer on a pharmaceutical spend analytics platform in a HIPAA-compliant environment.
+
+🔗 [LinkedIn](https://www.linkedin.com/in/michael-jensen-751b59294/) | 📧 jensen.md@gmail.com
 
 ---
 
@@ -25,6 +31,8 @@ The pytest suite runs SQL queries directly against the warehouse and validates:
 - Data quality checks (nulls, negatives, duplicates, formatting)
 - Referential integrity (foreign key consistency)
 
+This is the hardest QA work to fake — either the numbers reconcile end-to-end or they don't. The validation approach here mirrors what real ETL QA looks like in production: targeted SQL queries against the warehouse, reconciled against source data, with coverage driven by knowledge of where business rule calculations are most likely to break.
+
 ---
 
 ## Project Structure
@@ -45,29 +53,6 @@ pharmacy-spend-etl-qa/
 ├── reports/                        # Generated HTML test reports + ETL logs
 ├── conftest.py
 └── requirements.txt
-```
-
----
-
-## Running Locally
-
-**Prerequisites:** Python 3.9+
-
-```bash
-# Install dependencies
-pip install -r requirements.txt
-
-# Step 1: Generate source data
-python data/generate_source_data.py
-
-# Step 2: Run ETL pipeline
-python etl/etl_pipeline.py
-
-# Step 3: Run validation suite
-pytest tests/ -v
-
-# Optional: generate HTML report
-pytest tests/ -v --html=reports/validation-report.html --self-contained-html
 ```
 
 ---
@@ -140,9 +125,52 @@ This project mirrors the QA validation workflow used on the **Rx Analytics platf
 
 The core validation approach — risk-based SQL spot-checking against the warehouse, reconciling source data against transformed output, validating business rule calculations — is directly reflected in this test suite.
 
+The business context was real and high-stakes: pharmacy chains and hospital pharmacy systems used these reports to make purchasing decisions worth millions of dollars annually. Validating that tiered pricing thresholds, brand vs. generic spend calculations, and savings opportunity reporting were accurate wasn't just a QA exercise — it was ensuring that financial recommendations to clients were correct. That context shaped how this validation suite was designed: coverage driven by where errors would have the most impact, not just by what was easiest to test.
+
+---
+
+## Running Locally
+
+**Prerequisites:** Python 3.9+
+
+```bash
+# Install dependencies
+pip install -r requirements.txt
+
+# Step 1: Generate source data
+python data/generate_source_data.py
+
+# Step 2: Run ETL pipeline
+python etl/etl_pipeline.py
+
+# Step 3: Run validation suite
+pytest tests/ -v
+
+# Optional: generate HTML report
+pytest tests/ -v --html=reports/validation-report.html --self-contained-html
+```
+
+---
+
+## Relationship to Other Portfolio Projects
+
+This project is part of a three-project QA portfolio demonstrating complementary skills:
+
+| Project | Focus | Stack |
+|---|---|---|
+| **pharmacy-spend-etl-qa** (this repo) | ETL pipeline validation, SQL-driven data integrity testing | Python / pytest / SQLite / pandas |
+| [qa-automation-showcase](https://github.com/jensenmd/qa-automation-showcase) | REST API testing, data validation, CI/CD integration | Python / pytest / Postman / GitHub Actions |
+| [restful-booker-qa](https://github.com/jensenmd/restful-booker-qa) | Full-stack layered testing — API + UI automation | Postman / Newman / Playwright / GitHub Actions |
+
+Together they demonstrate backend data validation, API testing, and UI automation — the core layers of a modern QA engineering practice.
+
 ---
 
 ## Author
 
-Michael Jensen — QA Engineer  
-[GitHub Profile](https://github.com/jensenmd)
+**Michael D. Jensen** — Senior QA Engineer
+15+ years of enterprise software testing experience across healthcare IT, financial systems, telecommunications, and cybersecurity. Deep background in REST API validation, ETL pipeline testing, SQL-based data integrity verification, and full-stack manual testing in Agile environments.
+
+Five years as primary QA engineer on a pharmaceutical spend analytics platform — validating complex business rules, ETL pipelines, and financial reporting in a HIPAA-compliant environment.
+
+🔗 [LinkedIn](https://www.linkedin.com/in/michael-jensen-751b59294/) | 🐙 [GitHub Profile](https://github.com/jensenmd) | 📧 jensen.md@gmail.com
