@@ -171,6 +171,6 @@ Together they demonstrate backend data validation, API testing, and UI automatio
 **Michael D. Jensen** — Senior QA Engineer
 15+ years of enterprise software testing experience across healthcare IT, financial systems, telecommunications, and cybersecurity. Deep background in REST API validation, ETL pipeline testing, SQL-based data integrity verification, and full-stack manual testing in Agile environments.
 
-Five years as primary QA engineer on a pharmaceutical spend analytics platform — validating complex business rules, ETL pipelines, and financial reporting in a HIPAA-compliant environment.
+Five years on a pharmaceutical spend analytics platform — validating complex business rules, ETL pipelines, and financial reporting in a HIPAA-compliant environment.
 
 🔗 [LinkedIn](https://www.linkedin.com/in/michael-jensen-751b59294/) | 🐙 [GitHub Profile](https://github.com/jensenmd) | 📧 jensen.md@gmail.com
