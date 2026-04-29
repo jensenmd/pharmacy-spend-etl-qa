@@ -6,7 +6,7 @@ Built to demonstrate the source-to-target validation discipline used in enterpri
 
 ![CI Status](https://github.com/jensenmd/pharmacy-spend-etl-qa/actions/workflows/ci.yml/badge.svg)
 
-![qa-automation-showcase](pharmacy-spend-etl-qa-preview%20(2).png)
+![qa-automation-showcase](pharmacy-spend-etl-qa-previewv2.png)
 
 Built by **Michael D. Jensen** — Senior QA Engineer with 15+ years of enterprise testing experience, including five years as Senior QA Engineer on a pharmaceutical spend analytics platform in a HIPAA-compliant environment.
 
