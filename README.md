@@ -1,6 +1,6 @@
 # pharmacy-spend-etl-qa
 
-A SQL-driven data validation framework simulating ETL pipeline QA using pharmaceutical spend data modeled after the CMS Medicare Part D public dataset.
+Pharmacy spend reporting is useful only when the numbers reconcile. This project follows synthetic data from source files through an ETL pipeline into SQLite, using SQL-driven checks to verify completeness, financial calculations, and relationships. The generated data is modeled after the CMS Medicare Part D dataset.
 
 Built to demonstrate the source-to-target validation discipline used in enterprise healthcare QA — specifically the approach developed over five years testing the **Rx Analytics platform at GHX (Global Healthcare Exchange)**.
 
@@ -33,7 +33,7 @@ The pytest suite runs SQL queries directly against the warehouse and validates:
 - Data quality checks (nulls, negatives, duplicates, formatting)
 - Referential integrity (foreign key consistency)
 
-This is the hardest QA work to fake — either the numbers reconcile end-to-end or they don't. The validation approach here mirrors what real ETL QA looks like in production: targeted SQL queries against the warehouse, reconciled against source data, with coverage driven by knowledge of where business rule calculations are most likely to break.
+The numbers have to reconcile from source to warehouse. Targeted SQL queries check totals, business rules, and relationships, with coverage informed by where calculation errors would have the greatest impact.
 
 ---
 
@@ -67,9 +67,9 @@ pharmacy-spend-etl-qa/
 | Spend Total Validation | 3 | Total spending, claim counts, spending-per-claim accuracy |
 | Manufacturer Rollups | 3 | Aggregate vs. fact table, claim count sums, coverage |
 | Drug Category Validation | 2 | Valid categories, category spend rollup completeness |
-| Data Quality | 6 | Nulls, negatives, zero claims, uppercase normalization, year validity, duplicates |
+| Data Quality | 7 | Nulls, negatives, zero claims, beneficiary/claim consistency, uppercase normalization, year validity, duplicates |
 | Referential Integrity | 2 | Foreign key consistency across fact and dimension tables |
-| **Total** | **19** | |
+| **Total** | **20** | |
 
 ---
 
@@ -108,7 +108,7 @@ manufacturer_name         drug_name
 
 ## CI Pipeline
 
-GitHub Actions runs on every push to `main`:
+GitHub Actions is configured for pushes and pull requests to `main`:
 1. Generates synthetic source data
 2. Runs the ETL pipeline
 3. Executes the full validation suite
@@ -156,19 +156,22 @@ pytest tests/ -v --html=reports/validation-report.html --self-contained-html
 
 ## QA Portfolio Quick Reference
 
-This project is part of a broader QA portfolio demonstrating complementary quality-engineering skills.
+See [Michael D. Jensen’s QA portfolio](https://github.com/jensenmd) for the complete project overview.
 
-| Project | Focus |
-|---|---|
-| [android-appium-wdio-poc](https://github.com/jensenmd/android-appium-wdio-poc) | Native Android UI automation proof of concept using Appium, WebdriverIO, TypeScript, and UiAutomator2 |
-| [mapmyrun-quality-investigation](https://github.com/jensenmd/mapmyrun-quality-investigation) | Black-box mobile and GPS quality investigation using field evidence and bounded conclusions |
-| [restful-booker-qa](https://github.com/jensenmd/restful-booker-qa) | Layered API and UI automation using Postman, Newman, Playwright, and GitHub Actions |
-| [pharmacy-spend-etl-qa](https://github.com/jensenmd/pharmacy-spend-etl-qa) **(this repository)** | ETL pipeline and SQL-driven data-integrity validation modeled after healthcare analytics work |
-| [qa-automation-showcase](https://github.com/jensenmd/qa-automation-showcase) | REST API testing, data validation, and CI/CD-integrated automation |
-| [ai-qa-framework](https://github.com/jensenmd/ai-qa-framework) | Human-reviewed AI-assisted test generation with structured cases and pytest execution |
-| [claude-code-qa-sessions](https://github.com/jensenmd/claude-code-qa-sessions) | Agentic analysis of existing QA repositories with human review and targeted implementation |
-| [agentqa-orchestrator](https://github.com/jensenmd/agentqa-orchestrator) | Structured agentic code auditing using Python, Pydantic, Gemini, and JSON |
+| Project | Purpose and Approach |
+| --- | --- |
+| [fhir-api-qa](https://github.com/jensenmd/fhir-api-qa) | Checks whether a healthcare API preserves Patient data through its lifecycle, with isolated FHIR tests and useful CI failure evidence. |
+| [pharmacy-spend-etl-qa](https://github.com/jensenmd/pharmacy-spend-etl-qa) **(this repository)** | Checks that pharmacy spend data survives the trip from source files to analytics tables, using SQL reconciliation on a synthetic pipeline. |
+| [restful-booker-qa](https://github.com/jensenmd/restful-booker-qa) | Tests booking behavior at both API and browser layers, combining Postman/Newman and Playwright for repeatable regression feedback. |
+| [qa-automation-showcase](https://github.com/jensenmd/qa-automation-showcase) | Examines API behavior and the quality of returned data together, using pytest, Postman, and Python validation. |
+| [android-appium-wdio-poc](https://github.com/jensenmd/android-appium-wdio-poc) | Builds a focused baseline for Android UI checks, exercising Settings navigation on a local emulator with Appium and WebdriverIO. |
+| [mapmyrun-quality-investigation](https://github.com/jensenmd/mapmyrun-quality-investigation) | Investigates how workout tracking affects data integrity and user trust, using mobile field experiments and separating observations from explanations. |
+| [ai-qa-framework](https://github.com/jensenmd/ai-qa-framework) | Explores how AI can help develop useful API test coverage while keeping a QA engineer responsible for review and pytest execution. |
+| [claude-code-qa-sessions](https://github.com/jensenmd/claude-code-qa-sessions) | Shows how human QA judgment guides Claude Code from finding coverage gaps to making targeted, reviewed test improvements. |
+| [agentqa-orchestrator](https://github.com/jensenmd/agentqa-orchestrator) | Explores inspectable AI code reviews, using Gemini and Pydantic-defined response schemas to produce structured JSON audit artifacts. |
+
 ---
+
 ## Author
 
 **Michael D. Jensen** — Senior QA Engineer
@@ -176,6 +179,6 @@ This project is part of a broader QA portfolio demonstrating complementary quali
 
 Five years on a pharmaceutical spend analytics platform — validating complex business rules, ETL pipelines, and financial reporting in a HIPAA-compliant environment.
 
-Currently re-entering the field with active focus on Python/pytest automation, Playwright UI testing, and CI/CD-integrated quality practices.
+Current hands-on work includes Python/pytest automation, Playwright UI testing, and CI/CD-integrated quality practices.
 
 🔗 [LinkedIn](https://www.linkedin.com/in/michaeljensen-qa/) | 🐙 [GitHub Profile](https://github.com/jensenmd) | 📧 [jensen.md@gmail.com](mailto:jensen.md@gmail.com)
